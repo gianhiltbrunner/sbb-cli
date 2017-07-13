@@ -4,7 +4,6 @@
 import json
 import urllib.request
 import argparse
-import urllib
 
 parser = argparse.ArgumentParser()
 
