@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-f','--from', help='Departure station', required=True)
 parser.add_argument('-t','--to', help='Arrival station', required=True)
 parser.add_argument('-c','--time', help='Departure time', required=False)
-parser.add_argument('-d','--detail', help='Departure time', required=False)
+parser.add_argument('-d','--detail', help='Detailed information to connection [n]', required=False)
 
 args = vars(parser.parse_args())
 if args['detail']:
