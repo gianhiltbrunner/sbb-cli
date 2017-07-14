@@ -61,7 +61,7 @@ else:
                         departureDetail = i['departure']
                         arrivalDetail = i['arrival']
                         if journeyDetail:
-                            print("Station: " + departureDetail['station']['name'] + " Platform: (" + departureDetail['platform'] +  ") \"" + str(journeyDetail['name']) + "\" Heading to: " + journeyDetail['to'] )
+                            print("Station: " + departureDetail['station']['name'] + " At: " + departureDetail['departure'][11:16] + " Platform: (" + departureDetail['platform'] +  ") \"" + str(journeyDetail['name']) + "\" Heading to: " + journeyDetail['to'] )
                 else:
                     print("Details not found!")
 
