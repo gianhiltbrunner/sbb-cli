@@ -8,16 +8,19 @@ import argparse
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-f','--from', help='Departure station', required=True)
-parser.add_argument('-t','--to', help='Arrival station', required=True)
-parser.add_argument('-c','--time', help='Departure time', required=False)
-parser.add_argument('-d','--detail', help='Detailed information to connection [n]', required=False)
+parser.add_argument('-f', '--from', help='Departure station', required=True)
+parser.add_argument('-t', '--to', help='Arrival station', required=True)
+parser.add_argument('-c', '--time', help='Departure time', required=False)
+parser.add_argument('-d', '--detail', help='Verbose output', required=False)
 
 args = vars(parser.parse_args())
+
 if args['detail']:
-    url = 'http://transport.opendata.ch/v1/connections?from=' + str(args['from'].replace(' ','%20').encode('utf-8')) + '&to=' + str(args['to'].replace(' ','%20').encode('utf-8')) + '&limit=6'
+    url = 'http://transport.opendata.ch/v1/connections?from=' + str(args['from'].replace(' ','%20').encode('utf-8')) \
+        + '&to=' + str(args['to'].replace(' ','%20').encode('utf-8')) + '&limit=6'
 else:
-    url = 'http://transport.opendata.ch/v1/connections?from=' + str(args['from'].replace(' ','%20').encode('utf-8')) + '&to=' + str(args['to'].replace(' ','%20').encode('utf-8')) + '&fields[]=connections/from&fields[]=connections/to&fields[]=connections/duration&limit=6'
+    url = 'http://transport.opendata.ch/v1/connections?from=' + str(args['from'].replace(' ','%20').encode('utf-8')) \
+        + '&to=' + str(args['to'].replace(' ','%20').encode('utf-8')) + '&fields[]=connections/from&fields[]=connections/to&fields[]=connections/duration&limit=6'
 
 if args['time']:
     url = url + '&time=' + urllib.parse.quote_plus(str(args['time'].replace(' ','%20')))
@@ -38,14 +41,9 @@ else:
         for i in data['connections']:
             index = index + 1
 
-            conn[0] = i['from']['station']['name']
-            conn[1] = i['to']['station']['name']
-            conn[2] = i['from']['departure']
-            conn[3] = i['to']['arrival']
-            conn[4] = i['duration']
-            conn[5] = i['from']['platform'] or "-"
-
-            print("[" + str(index) + "] From: " + conn[0] + " (" + conn[5] + ")" + " At: " + conn[2][11:16] + " To: " + conn[1] + " At: " + conn[3][11:16] + " Duration: " + conn[4][4:12])
+            print("[" + str(index) + "] From: " + i['from']['station']['name']
+                + " (" + (i['from']['platform'] or "-") + ")" + " At: " + i['from']['departure'][11:16]
+                    + " To: " + i['to']['station']['name'] + " At: " + i['to']['arrival'][11:16] + " Duration: " + i['duration'][4:12])
 
         if args['detail']:
             if data['connections']:
@@ -56,7 +54,9 @@ else:
                     departureDetail = i['departure']
                     arrivalDetail = i['arrival']
                     if journeyDetail:
-                        print("Station: " + departureDetail['station']['name'] + " At: " + departureDetail['departure'][11:16] + " Platform: (" + departureDetail['platform'] +  ") \"" + str(journeyDetail['name']) + "\" Heading to: " + journeyDetail['to'] )
+                        print("Station: " + departureDetail['station']['name'] + " At: " + departureDetail['departure'][11:16]
+                            + " Platform: (" + departureDetail['platform'] +  ") \"" + str(journeyDetail['name'])
+                                + "\" Heading to: " + journeyDetail['to'] )
             else:
                 print("Details not found!")
 
