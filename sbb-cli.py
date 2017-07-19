@@ -20,7 +20,8 @@ if args['detail']:
         + '&to=' + str(args['to'].replace(' ','%20').encode('utf-8')) + '&limit=6'
 else:
     url = 'http://transport.opendata.ch/v1/connections?from=' + str(args['from'].replace(' ','%20').encode('utf-8')) \
-        + '&to=' + str(args['to'].replace(' ','%20').encode('utf-8')) + '&fields[]=connections/from&fields[]=connections/to&fields[]=connections/duration&limit=6'
+        + '&to=' + str(args['to'].replace(' ','%20').encode('utf-8')) \
+            + '&fields[]=connections/from&fields[]=connections/to&fields[]=connections/duration&limit=6'
 
 if args['time']:
     url = url + '&time=' + urllib.parse.quote_plus(str(args['time'].replace(' ','%20')))
@@ -35,8 +36,6 @@ else:
     data = json.loads(text)
 
     if data['connections']:
-        conn = [0] * 6
-
         index = 0
         for i in data['connections']:
             index = index + 1
@@ -50,13 +49,12 @@ else:
 
                 print("\nConnection: " + str(int(args['detail'])) + ":")
                 for i in data['connections'][int(args['detail'])-1]['sections']:
-                    journeyDetail = i['journey']
-                    departureDetail = i['departure']
-                    arrivalDetail = i['arrival']
-                    if journeyDetail:
-                        print("Station: " + departureDetail['station']['name'] + " At: " + departureDetail['departure'][11:16]
-                            + " Platform: (" + (departureDetail['platform'] or "-") +  ") \"" + str(journeyDetail['name'])
-                                + "\" Heading to: " + journeyDetail['to'] )
+
+                    if i['journey']:
+                        print("Station: " + i['departure']['station']['name'] + " At: " + i['departure']['departure'][11:16]
+                            + " Platform: (" + (i['departure']['platform'] or "-") +  ") \"" + str(i['journey']['name'])
+                                + "\" Heading to: " + i['journey']['to'] )
+                                #i['arrival']
             else:
                 print("Details not found!")
 
