@@ -47,7 +47,7 @@ else:
         if args['detail']:
             if data['connections']:
 
-                print("\nConnection: " + str(int(args['detail'])) + ":")
+                print("\nConnection [" + str(int(args['detail'])) + "]:")
                 for i in data['connections'][int(args['detail'])-1]['sections']:
 
                     if i['journey']:
