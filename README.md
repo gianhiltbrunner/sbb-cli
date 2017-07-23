@@ -1,6 +1,8 @@
 ## Transport info from switzerland on the CLI.
 ### Command line access to the http://transport.opendata.ch API.
 
+	wget https://raw.githubusercontent.com/protelescristata/sbb-cli/master/sbb-cli.py
+	chmod +x sbb-cli.py
 * Requires python3
 
 * usage: sbb-cli.py [-h] -f FROM -t TO [-c TIME] [-d DETAIL]
