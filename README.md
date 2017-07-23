@@ -27,7 +27,7 @@
             [8] From: Appenzell (-) At: 21:05 To: Ramsei At: 00:30 Duration: 3:25:00
             [9] From: Appenzell (4B) At: 23:00 To: Ramsei, Bahnhof At: 03:21 Duration: 4:22:00
 
-            Connection: 3:
+            Connection [3]:
             Station: Appenzell At: 19:30 Platform: (3B) "S 23 1192" Heading to: Gossau SG
             Station: Gossau SG At: 20:20 Platform: (4) "ICN 1538" Heading to: Lausanne
             Station: Olten At: 22:37 Platform: (9) "IR 2388" Heading to: Bern
