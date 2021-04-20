@@ -13,9 +13,17 @@
     *  -t TO, --to TO        Arrival station
     *  -c TIME, --time TIME  Departure time
     *  -d DETAIL, --detail DETAIL Detailed information to connection [n]
+
+#### Example Queries
+* From station to Station: `sbb-cli.py -f Bern -t Olten -d 3`
+* `sbb-cli.py -f Genf -t Landesmuseum`
+* `sbb-cli.py -f Bern -t "Zürich, Bahnhofsstrasse 1" -c 14:39 -d 1`
+Note: A lookup of the location is done first and the "best" location is chosen.  
+So if we provide "Zürich" we will end up with "Zürich HB". To give a second 
+example "Mosn" will become "Mosnang, Dorf".
+
     
 #### Sample output:
-    
             python3 sbb-cli.py -f "Apenzell" -t "Ramsei" -d 3
             [1] From: Appenzell (4A) At: 19:00 To: Ramsei At: 23:06 Duration: 4:06:00
             [2] From: Appenzell (3B) At: 19:30 To: Ramsei At: 23:29 Duration: 3:59:00
